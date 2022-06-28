@@ -1,6 +1,6 @@
 
 
-from distutils.log import error
+# from distutils.log import error
 from flask import Flask
 from flask import render_template,request,redirect,url_for,send_from_directory,flash
 from flaskext.mysql import MySQL
@@ -15,8 +15,8 @@ mysql=MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
 app.config['MYSQL_DATABASE_PASSWORD']=''
-app.config['MYSQL_DATABASE_DB']='nuria'
-app.config['SECRET_KEY']='sanchez'
+app.config['MYSQL_DATABASE_DB']='gustavo'
+# app.config['SECRET_KEY']='sanchez'
 
 UPLOADS=os.path.join('uploads')
 app.config['UPLOADS'] = UPLOADS    
@@ -26,12 +26,9 @@ mysql.init_app(app)
 conn=mysql.connect()
 cursor=conn.cursor(cursor=DictCursor)
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
-    sql="SELECT * FROM productos;"
-    cursor.execute(sql)
-    productos=cursor.fetchall()
-    return render_template('productos/index.html', productos=productos)
+    return render_template('productos/index.html')
 
 
 @app.route('/admin', methods=['POST'])
@@ -82,15 +79,21 @@ def uploads(nombreFoto):
 
 @app.route('/seleccion', methods=['POST'] )
 def seleccion():
-    _producto=request.form['tipoProducto']
-     
-    sql=f"SELECT * FROM productos WHERE Producto='{_producto}'"
-    
+    _rubro=request.form['Name']
+    # print(_rubro)
+    # id ='ABRAZADERAS'
+    # sql ="SELECT * FROM  `gustavo`.`web` WHERE rubro=%s", (id); 
+    # sql=f"SELECT * FROM gustavo.web WHERE rubro={id}";
+    sql=f"SELECT * FROM gustavo.web WHERE  rubro = '{_rubro}' LIMIT 0, 1000";
+
+    conn=mysql.connect()
+    cursor = conn.cursor()
     cursor.execute(sql)
-    productos=cursor.fetchall()
-     
+    articulos=cursor.fetchall()
+    # print(articulos)
+    conn.commit()
+    return render_template('seleccionados.html', articulos=articulos )
     
-    return render_template('seleccionados.html', productos=productos)
     
 @app.route('/mono', methods=['GET'])
 def mono():

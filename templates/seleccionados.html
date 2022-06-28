@@ -1,28 +1,93 @@
-{% include 'header.html' %}
+ 
+ {% include "header.html" %}
+  <a  type="button" class="btn btn-danger" href="{{url_for('index')}}">Volver al menu principal</a>
 
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Foto</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for item in productos %}
-        <tr>
-            <td>{{item.Id}}</td>
-            <td>{{item.Nombre}}</td>
-            <td><img src="userpic/{{item.Foto}}" width="500"  alt="foto"></td>
+    <div class="container-fluid titulares">
+        <div class="row justify-content-center">
+          <div class="col-2">
+           <p>Imagen</p>
+          </div>
+          <div class="col-1 mw-100 text-center">
+            <p>Codigo</p>
+          </div>
+          <div class="col-4 text-center" >
+            <p>Descripcion</p>
+          </div>
+          <div class="col-1 mw-100 text-center">
+            <p>Precio</p>
+          </div>
+          <div class="col-1 mw-100 text-center">
+            <p>Unidad</p>
+          </div>
+          <div class="col-2 mw-100 text-center">
+            <p>Añadir</p>
+          </div>
+        </div>
+    </div>
+         
+        
+          
+        {% for articulo in articulos %}
+          <div class="row articulos justify-content-center listado item" >
+            <div class="col-2">
+             <p id="imagen" name="{{articulo[0]}}"> <img class="item-image" src="userpic/{{articulo[10]}}.jpg" alt="userpic/{{articulo[10]}}.jpg" width="100%"></p>
+            </div>
+            <div class="col-1 art mw-100 no-gutters text-center">
+              <p  class="item-codigo">{{articulo[0]}}</p>
+            </div>
+            <div class="col-4 art no-gutters text-center"  >
+              <p class="item-descripcionProducto ">{{articulo[7]}}</p>
+            </div>
+            <div class="col-1 art mw-100 no-gutters text-center">
+              <p class="item-precioProducto">{{articulo[8]}}</p>
+            </div>
+            <div class="col-1 art mw-100 no-gutters text-center">
+              <p class="item-unidadDeVenta">{{articulo[9]}}</p>
+            </div>
+            <div class="col-2 art mw-100 no-gutters text-center">
+              <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">+</button> 
+            </div>
+        </div>
+        {% endfor %}
+   
 
-        </tr>
-    {% endfor %}
-
-    </tbody>
-  </table>
 
 
 
 
+<script>
+ 
+// var img=document.querySelector("#imagen")
+// console.log(img)
+// img.setAttribute("id","visible")
+var imagenes=document.querySelectorAll("#imagen")
+// console.log(imagenes)
+//console.log(imagenes[0].innerHTML)
+var array=[]
+for (let e=0; e<imagenes.length ; e++){
+  array.push(imagenes[e].innerHTML)
+}
+//console.log("este es el array" + array)
 
-{% include 'footer.html'%}
+
+var unicas= [...new Set(array)]
+// console.log(unicas) 
+for(let e=0; e<imagenes.length ; e++){
+//  console.log(imagenes[e].innerHTML);
+//  console.log(unicas.includes(imagenes[e].innerHTML));
+  if (unicas.includes(imagenes[e].innerHTML)==true){
+    var img=document.querySelector("#imagen");
+    img.setAttribute("id","visible");
+    unicas = unicas.filter(function(i) { return i !== imagenes[e].innerHTML });
+   // console.log("unicas: "+unicas)
+
+    
+
+  }else{
+    continue
+    // console.log("repetida")} 
+  }};
+
+
+
+</script>

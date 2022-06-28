@@ -1,27 +1,105 @@
-{% include "header.html" %}
  
-<br>
+    {% include "header.html" %}
+    <button onclick=volver() style="display:none;" id="volver">Volver</button>
+    <div class="container" id="container">
+        <div class="row">
+          <div class="col-sm">
+           <button class="btn-lg" onclick="mostrarSanitarios(event)" id="sanitarios"> Sanitarios</button>
+          </div>
+          <div class="col-sm">
+            <button class="btn-lg" onclick="mostrarSanitarios(event)" id="gas" >Gas</button>
+          </div>
+          <div class="col-sm">
+            <button class="btn-lg"  onclick="mostrarSanitarios(event)" id="roscado" >Bronce Roscado</button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn-lg" >PPN</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" >Polietileno</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" >Epoxi</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+                <button class="btn-lg" >Fusion Gas</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" > Fusion Agua</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" >Ferreteria</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+                <button class="btn-lg" >Buloneria</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" >Zingueria</button>
+            </div>
+            <div class="col-sm">
+                <button class="btn-lg" >Calefaccion</button>
+            </div>
+          </div>
+      </div>
+      <br><br>
+      <div id="cuadro"></div>
 
-<table class= "table table-dark">
-  <thead class="thead-dark">
-      <th>Id</th>
-      <th>Producto</th>
-      <th>Nombre</th>
-      <th>Foto</th>
-  </tr>
-  </thead>
-  <tbody>
-      {% for item in productos %}
 
-      <tr>
+
+
+      <div class="invisible">
           
-          <td>{{item.Id}}</td>
-          <td>{{item.Producto}}</td>
-          <td>{{item.Nombre}}</td>
-          <td><img src="userpic/{{item.Foto}}" width="400" alt="item"></td>
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
+        <div class="sanitarios">
+            <form method="POST" action="/seleccion" enctype="multipart/form-data">
+                <div class="form-group">
+                     
+                    <input type="submit"  formenctype="multipart/form-data" formmethod="post"  value="ABRAZADERAS" name="Name">
+                </div>
+            </form>
+            <form method="POST" action="/seleccion" enctype="multipart/form-data">
+                <div class="form-group">
+                     
+                    <input type="submit"  formenctype="multipart/form-data" formmethod="post"  value="ACCESORIOS PARA BAÑO" name="Name">
+                </div>
+            </form>
+        </div>
+        <div class="gas">
+            <form method="POST" action="/seleccion" enctype="multipart/form-data">
+                <div class="form-group">
+                     
+                    <input type="submit"  formenctype="multipart/form-data" formmethod="post"  value="CAÑOS DE COBRE Y ALUMINIO" name="Name">
+                </div>
+            </form>
+        </div>
+   
 
-{% include 'footer.html' %}
+<script>function mostrarSanitarios(event){
+    var id = event.currentTarget.getAttribute("id")
+  //  console.log(id)
+    var rubros = document.getElementsByClassName(id);
+
+   // console.log(rubros)
+    var contenedor=document.getElementById("container");
+   // console.log(contenedor)
+    contenedor.style.display = 'none';
+    document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
+    document.getElementById("volver").style.display = 'block';
+}
+function volver(){
+    var contenedor=document.getElementById("container");
+    contenedor.style.display = 'block';
+    document.getElementById("volver").style.display = 'none';
+    document.getElementById("cuadro").innerHTML="";
+    
+
+
+}
+</script>
+
+ 

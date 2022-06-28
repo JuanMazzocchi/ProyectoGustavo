@@ -20,20 +20,14 @@
     
 
 
-    <style>
-
-
-        body{
-          margin: 4vh;
-        }
-      </style>
+     
     
-    <title>Nu's Collection</title>
+    <title>Proyecto Gustavo</title>
 </head>
 <body>
 <div id="head">
-<h1>Nu's Collection</h1>
-<img id="logonuri" src="/static/Nuri.jpg" alt="Nuri" width="90"></div>
+<h1>Proyecto Gustavo</h1>
+<img id="logonuri" src="/static/gustavo.jpg" alt="jc" width="90"></div>
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,6 +41,7 @@
             <li class="nav-item active">
               <a class="nav-link" href="{{url_for('mono')}}">Seleccion <span class="sr-only">(current)</span></a>
             </li>
+            <img src="/static/cart.jpeg" alt="carrito" class="imgCarrito" width="15%" id="carrito" type="button"> 
              
             
           </ul>
@@ -66,3 +61,27 @@
           </form>
         </div>
       </nav>
+      <div class="modalCarrito" id="todoElCarro">
+        <button class="btn btn-danger" id="BtnCerrarCarrito">Cerrar Carrito</button>
+        <div class="container-fluid titulares">
+          <div class="row justify-content-center">
+            <div class="col-1 mw-100 text-center">
+              <p>Codigo</p>
+            </div>
+            <div class="col-3 text-center"  >
+              <p>Descripcion</p>
+            </div>
+            <div class="col-1 mw-100 text-center">
+              <p>Precio</p>
+            </div>
+            <div class="col-1 mw-100 text-center">
+              <p>Unidad</p>
+            </div>
+            <div class="col-1 mw-100 text-center">
+              <p>Cantidad</p>
+            </div>
+          </div>
+        </div>
+        <div id="modalCarrito"></div>
+        <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
+      </div>

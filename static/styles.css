@@ -17,3 +17,45 @@ h1{
     margin-right: 10vh;
 
 }
+#imagen{
+    display:none;
+  }
+  
+ #visible{
+   display: block;
+ }
+ .titulares{
+   font-weight: bolder;
+   font-size:xx-small ;
+ }
+
+ .articulos{
+   font-size:xx-small;
+ }
+ 
+
+.art{
+   
+   border: solid 1px blue;
+}
+.col-1{
+ margin: 0px !important;
+ padding: 0px 0px 0px 0px !important;
+}
+.col-2{ margin: 0px !important;
+ padding: 0px 0px 0px 0px !important;
+
+}
+.col-4{
+ margin: 0px !important;
+ padding: 0px 0px 0px 0px !important;
+}
+.no-gutters {
+ margin-right: 0;
+ margin-left: 0;
+}
+
+#todoElCarro{
+  display: none;
+}
+ 
