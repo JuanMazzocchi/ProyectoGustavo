@@ -94,13 +94,17 @@ function arregladora(item){
       <p class="item-descripcionProducto">${item.descripcion}</p>
     </div>
     <div class="col-1 art mw-100 no-gutters text-center">
-      <p class="item-precioProducto">${item.precio}</p>
+      <p class="item-precioProducto"> ${item.precio}</p>
+    </div>
+    
+    <div class="col-1 art mw-100 no-gutters text-center">
+    <button class="btn btn-info restaCantidad" title="Disminuir">-</button><input class="cantidadInput" type="number" value=${item.cantidad} min="0" ><button class="btn btn-info sumaCantidad" title="Añadir">+</button>
     </div>
     <div class="col-1 art mw-100 no-gutters text-center">
-      <p class="item-unidadDeVenta">${item.unidad}</p>
+    <button class="btn btn-danger btnBorrarProducto" title="Quitar del Carro">X</button>
     </div>
     <div class="col-1 art mw-100 no-gutters text-center">
-      <p class="item-Cantidad">${item.cantidad}</p><button class="btn btn-danger btnBorrarProducto" title="Quitar del Carro">X</button>
+      <p class="item-SubtotalProducto">$ ${(item.precio * item.cantidad).toFixed(2)}</p>
     </div>
     </div> `;
     filaCarrito.innerHTML=contenidoCarrito;
@@ -171,6 +175,14 @@ function modalCarrito(){
     borrarProductoCarro.forEach(borroProducto => {
     borroProducto.addEventListener('click', borrarProductoCarroClicked);
     });
+    const restarCantidadCarro = document.querySelectorAll('.restaCantidad');
+    restarCantidadCarro.forEach(restarProducto =>{
+        restarProducto.addEventListener('click', btnRestarCantidadClicked)
+    });
+    const sumarCantidadCarro = document.querySelectorAll('.sumaCantidad');
+    sumarCantidadCarro.forEach(sumarProducto=>{
+        sumarProducto.addEventListener('click', btnSumarCantidadClicked);
+    })
     };
 
 
@@ -204,6 +216,56 @@ function modificarCantidad(modificado){
     guardarEnLS(productosEnStorage);
 };
 
+function btnRestarCantidadClicked(event){
+    let btn = event.target;
+    let prodAModificar = btn.closest('.contenedor');
+    let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
+    let itemCantidad =prodAModificar.querySelector('.cantidadInput').value;
+    let productoModificado;
+    let productos;
+    productos =obtenerProductosLS();
+
+    for (let i = 0; i < productos.length; i++) {
+        if (productos[i].id===itemCodigo){
+
+            if(productos[i].cantidad===1){
+                continue
+            }else{
+            productoModificado=productos[i];
+            productoModificado.cantidad=itemCantidad-1;
+            productos.splice([i],1,productoModificado); //quita el array viejo y en su lugar pone el nuevo
+            localStorage.setItem('productos', JSON.stringify(productos));
+            cerrarCarro();
+            modalCarrito();
+            totalCarro();
+            };
+        };
+    };
+};
+
+function btnSumarCantidadClicked(event){
+    let btn = event.target;
+    let prodAModificar = btn.closest('.contenedor');
+    let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
+    let itemCantidad =parseInt( prodAModificar.querySelector('.cantidadInput').value);
+    let productoModificado;
+    let productos;
+    productos =obtenerProductosLS();
+
+    for (let i = 0; i < productos.length; i++) {
+        if (productos[i].id===itemCodigo){
+            
+            productoModificado=productos[i];
+            productoModificado.cantidad=itemCantidad+1;
+            productos.splice([i],1,productoModificado); //quita el array viejo y en su lugar pone el nuevo
+            localStorage.setItem('productos', JSON.stringify(productos));
+            cerrarCarro();
+            modalCarrito();
+            totalCarro();
+            };
+        };
+};
+
 function borrarProductoCarroClicked(event){
      
     let btn = event.target;
@@ -222,6 +284,33 @@ function borrarProductoCarroClicked(event){
             console.log("borrado");
             cerrarCarro();
             modalCarrito();
+            totalCarro();
         };
     };
 };
+
+function totalCarro(){
+    let productos;
+    productos =obtenerProductosLS();
+    let total=0;
+    let totalDiv = document.getElementById('totalCarro');
+
+
+
+    for (let i = 0; i < productos.length; i++) {
+        console.log(productos[i].precio*productos[i].cantidad);
+        total=total+(parseFloat(productos[i].precio)*parseFloat(productos[i].cantidad));
+        
+    };
+    
+    let totalnumero =  `<p>Total Pedido: $ ${total.toFixed(2)} </p>`;
+    totalDiv.innerHTML=totalnumero;
+    // totalDiv.append(totalnumero);
+    
+
+}
+
+function cantidadDefault(){
+    console.log("nada")}
+
+totalCarro();
