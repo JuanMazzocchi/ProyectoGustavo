@@ -109,6 +109,12 @@ function arregladora(item){
     </div> `;
     filaCarrito.innerHTML=contenidoCarrito;
     contenedorCarrito.append(filaCarrito);
+
+    //modal nuevo
+
+    // const modalnuevo = document.getElementById('modal');
+    // modalnuevo.append(filaCarrito);
+    
     
  };
 
@@ -182,7 +188,8 @@ function modalCarrito(){
     const sumarCantidadCarro = document.querySelectorAll('.sumaCantidad');
     sumarCantidadCarro.forEach(sumarProducto=>{
         sumarProducto.addEventListener('click', btnSumarCantidadClicked);
-    })
+    });
+    totalCarro();
     };
 
 
@@ -298,7 +305,7 @@ function totalCarro(){
 
 
     for (let i = 0; i < productos.length; i++) {
-        console.log(productos[i].precio*productos[i].cantidad);
+        // console.log(productos[i].precio*productos[i].cantidad);
         total=total+(parseFloat(productos[i].precio)*parseFloat(productos[i].cantidad));
         
     };
@@ -314,3 +321,39 @@ function cantidadDefault(){
     console.log("nada")}
 
 totalCarro();
+
+
+//modal nuevo
+
+if(document.getElementById("btnModal")){
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("btnModal");
+    var span = document.getElementsByClassName("close")[0];
+    var body = document.getElementsByTagName("body")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+
+        body.style.position = "static";
+        body.style.height = "100%";
+        body.style.overflow = "hidden";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+
+        body.style.position = "inherit";
+        body.style.height = "auto";
+        body.style.overflow = "visible";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+
+            body.style.position = "inherit";
+            body.style.height = "auto";
+            body.style.overflow = "visible";
+        }
+    }
+}

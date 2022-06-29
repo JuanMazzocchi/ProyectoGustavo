@@ -27,7 +27,8 @@
 <body>
 <div id="head">
 <h1>Proyecto Gustavo</h1>
-<img id="logonuri" src="/static/gustavo.jpg" alt="jc" width="90"></div>
+<img id="logo" src="/static/gustavo.jpg" alt="jc" width="90">
+</div>
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,13 +39,11 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
               <a class="nav-link" href="{{url_for('mono')}}">Seleccion <span class="sr-only">(current)</span></a>
-            </li>
-            <img src="/static/cart.jpeg" alt="carrito" class="imgCarrito" width="15%" id="carrito" type="button"> 
-             
-            
+            </li> -->
           </ul>
+          <img src="/static/cart.jpeg" alt="carrito" class="imgCarrito" width="8%" id="carrito" type="button"> 
           <form method="post" action="/admin" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -93,6 +92,15 @@
           </div>
         <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
       </div>
+      <!-- <button id="btnModal">Abrir modal</button> 
+      <div id="myModal" class="modalContainer">
+      <div class="modal-content">
+      <span class="close">×</span> <h2>Modal</h2>
+      <p>Se ha desplegado el modal y bloqueado el scroll del body!</p> 
+      <div id="modal"></div>
+      </div> -->
+      </div> 
+
 
 
  
