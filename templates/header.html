@@ -43,7 +43,7 @@
               <a class="nav-link" href="{{url_for('mono')}}">Seleccion <span class="sr-only">(current)</span></a>
             </li> -->
           </ul>
-          <img src="/static/cart.jpeg" alt="carrito" class="imgCarrito" width="8%" id="carrito" type="button"> 
+          <img src="/static/cart.jpeg" alt="carrito" class="imgCarrito" width="8%"  type="button" data-toggle="modal" data-target="#exampleModal" id="btnModalBoot"> 
           <form method="post" action="/admin" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -85,21 +85,47 @@
           </div>
         </div>
         <div id="modalCarrito"></div>
-        <div class="row justify-content-center">
+        <!-- <div class="row justify-content-center">
           <div class="col-1 mw-100 text-center" id="totalCarro">
             
           </div>
-          </div>
-        <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
+          </div> -->
+        <!-- <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button> -->
       </div>
-      <!-- <button id="btnModal">Abrir modal</button> 
-      <div id="myModal" class="modalContainer">
-      <div class="modal-content">
-      <span class="close">×</span> <h2>Modal</h2>
-      <p>Se ha desplegado el modal y bloqueado el scroll del body!</p> 
-      <div id="modal"></div>
-      </div> -->
-      </div> 
+       
+       
+      <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btnModalBoot">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document"  style="max-width: 80%;">
+    <div class="modal-content" >
+      <div class="modal-header">
+         
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <div class="container-fluid" id="modalBootstrap">
+          
+        </div>
+      </div>
+      <div class="row justify-content-center">
+          <div class="col-1 mw-100 text-center" id="totalCarro">
+          </div>
+          </div>
+          <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

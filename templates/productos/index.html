@@ -77,29 +77,34 @@
                 </div>
             </form>
         </div>
+      </div>
    
 
-<script>function mostrarSanitarios(event){
-    var id = event.currentTarget.getAttribute("id")
+<script>
+ //   function mostrarSanitarios(event){
+ //   var id = event.currentTarget.getAttribute("id")
   //  console.log(id)
-    var rubros = document.getElementsByClassName(id);
+ //   var rubros = document.getElementsByClassName(id);
 
-   // console.log(rubros)
-    var contenedor=document.getElementById("container");
+   // console.log(rubros)                                                YA LA PASE AL INDEX.JS
+  //  var contenedor=document.getElementById("container");
    // console.log(contenedor)
-    contenedor.style.display = 'none';
-    document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
-    document.getElementById("volver").style.display = 'block';
-}
-function volver(){
-    var contenedor=document.getElementById("container");
-    contenedor.style.display = 'block';
-    document.getElementById("volver").style.display = 'none';
-    document.getElementById("cuadro").innerHTML="";
+  //  contenedor.style.display = 'none';
+  //  document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
+  //  document.getElementById("volver").style.display = 'block'; };
+
+
+// function volver(){
+//    var contenedor=document.getElementById("container");
+//    contenedor.style.display = 'block';                           YA LA PASE AL INDEX.JS
+//    document.getElementById("volver").style.display = 'none';
+//    document.getElementById("cuadro").innerHTML="";} 
     
 
 
-}
+
 </script>
+
+{% include "footer.html" %}
 
  

@@ -45,10 +45,12 @@
               <p class="item-unidadDeVenta">{{articulo[9]}}</p>
             </div>
             <div class="col-2 art mw-100 no-gutters text-center">
-             <input type="number" value="0" id='cantidadDefault'> <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">+</button> 
+             <input type="number" value="0" class='cantidadDefault'> <button class="btn btn-success btnAñadirAlCarrito" title="Añadir Producto">+</button> 
             </div>
         </div>
         {% endfor %}
+
+       
    
 
 
@@ -81,3 +83,6 @@ for(let e=0; e<imagenes.length ; e++){
 
 
 </script>
+
+{% include "footer.html" %}
+

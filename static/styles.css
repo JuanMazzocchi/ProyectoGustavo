@@ -83,7 +83,7 @@ input[type=number] {
 .contenedor{
   font-size: large;
 }
-#cantidadDefault{
+.cantidadDefault{
   width: 40px;
 }
 .container{
@@ -91,9 +91,13 @@ input[type=number] {
   margin-bottom: 1vh;
 }
 
+/* .modal-content{
+  width: 90% !important;
+} */
+
 /* MODAL */
 
-.modalContainer {
+/* .modalContainer {
   display: none; 
   position: fixed; 
   z-index: 1;
@@ -128,4 +132,4 @@ input[type=number] {
   color: #000;
   text-decoration: none;
   cursor: pointer;
-}
+} */
