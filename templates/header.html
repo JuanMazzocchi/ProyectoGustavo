@@ -60,40 +60,6 @@
           </form>
         </div>
       </nav>
-      <div class="modalCarrito" id="todoElCarro">
-        <button class="btn btn-danger" id="BtnCerrarCarrito">Cerrar Carrito</button>
-        <div class="container-fluid titulares">
-          <div class="row justify-content-center">
-            <div class="col-1 mw-100 text-center">
-              <p>Codigo</p>
-            </div>
-            <div class="col-3 text-center"  >
-              <p>Descripcion</p>
-            </div>
-            <div class="col-1 mw-100 text-center">
-              <p>Precio</p>
-            </div>
-            <div class="col-1 mw-100 text-center">
-              <p>Cantidad</p>
-            </div>
-            <div class="col-1 mw-100 text-center">
-              <p>Quitar</p>
-            </div>
-            <div class="col-1 mw-100 text-center">
-              <p>SubTotal Producto</p>
-            </div>
-          </div>
-        </div>
-        <div id="modalCarrito"></div>
-        <!-- <div class="row justify-content-center">
-          <div class="col-1 mw-100 text-center" id="totalCarro">
-            
-          </div>
-          </div> -->
-        <!-- <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button> -->
-      </div>
-       
-       
       <!-- Button trigger modal -->
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btnModalBoot">
   Launch demo modal
@@ -101,7 +67,7 @@
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document"  style="max-width: 80%;">
+  <div class="modal-dialog modal-lg" role="document"  style="max-width: 90%;">
     <div class="modal-content" >
       <div class="modal-header">
          
@@ -110,15 +76,35 @@
         </button>
       </div>
       <div class="modal-body" >
-        <div class="container-fluid" id="modalBootstrap">
+        <div class="container-fluid" id="modalBootstrap"  >   
+          <!--aca se muestra el pedido en el carro -->
           
         </div>
       </div>
       <div class="row justify-content-center">
           <div class="col-1 mw-100 text-center" id="totalCarro">
           </div>
+       </div>
+       <div id="terminarPedido" style="display:none ;" >
+        <form>
+          <div class="row justify-content-center">   
+          <div class="form-group col-3">
+            <label for="formGroupExampleInput" class="labelForm">Nombre</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre">
           </div>
-          <button class="btn btn-success">Enviar Pedido</button><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
+          <div class="form-group col-3">
+            <label for="formGroupExampleInput2" class="labelForm">Email</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="ejemplo@email.com">
+          </div>
+          </div>
+          <div class="row justify-content-center"><button type="input" class="btn btn-warning">Confirmar Y Enviar</button></div>
+        </form>
+       <div class="row justify-content-center"><button class="btn btn-dark" id="btnVolver">Volver</button></div>
+       </div>
+
+          <div  class="row justify-content-center" id="botonesEnviar">
+          <a class="btn btn-success"  id="btnEnviarPedido">Enviar Pedido</a><button class="btn btn-dark" id="vaciarCarrito">Vaciar Carrito</button>
+          </div>
       <div class="modal-footer">
         
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,0 +1,23 @@
+{% include 'header.html' %}
+
+<div id="contenedorPedido"  >
+    <form class="row justify-content-center" id="formularioPedido">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email address</label>
+          <input type="email" class="form-control" id="emailPedido" placeholder="tuemail@ejemplo.com" >
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Nombre</label>
+            <input type="text" class="form-control" id="nombrePedido" placeholder="Tu Nombre Aqui">
+          </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" id="textoPedido" name="textoPedido" rows="3">hola</textarea>
+        </div>
+        
+      </form>
+      <div id="otro" style="border: solid red 1px;"></div>
+
+</div>
+
+{% include 'footer.html' %}

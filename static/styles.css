@@ -28,12 +28,15 @@ h1{
  #visible{
    display: block;
  }
- .titulares{
+ .titulares, #totalCarro, .labelForm{
    font-weight: bolder;
    font-size:large ;
  }
 
- 
+ #cuadro>form{
+  margin: 1vh;
+ }
+
  
 
 .art{
@@ -60,8 +63,8 @@ h1{
 #todoElCarro{
   display: none;
 }
-
-  /* Chrome, Safari, Edge, Opera */
+/* LAS FLECHAS DEL INPUT */
+  /* Chrome, Safari, Edge, Opera */ 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -86,50 +89,11 @@ input[type=number] {
 .cantidadDefault{
   width: 40px;
 }
-.container{
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+.container>div{
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
-/* .modal-content{
-  width: 90% !important;
-} */
-
-/* MODAL */
-
-/* .modalContainer {
-  display: none; 
-  position: fixed; 
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+#vaciarCarrito, #btnEnviarPedido{
+  width: 30%;
 }
-
-.modalContainer .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid lightgray;
-  border-top: 10px solid #58abb7;
-  width: 60%;
-}
-
-.modalContainer .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.modalContainer .close:hover,
-.modalContainer .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-} */
