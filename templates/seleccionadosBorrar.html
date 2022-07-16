@@ -14,8 +14,9 @@
 <table class="table table-striped">
     <thead class="thead-dark col-5 ">
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
+        <th scope="col">Cod Producto</th>
+        <th scope="col">Rubro</th>
+        <th scope="col">Descripcion</th>
         <th scope="col">Foto</th>
         <th scope="col"></th>
       </tr>
@@ -23,14 +24,15 @@
     <tbody>
     {% for item in productos %}
         <tr>
-            <td>{{item.Id}}</td>
-            <td>{{item.Nombre}}</td>
-            <td><img src="userpic/{{item.Foto}}" width="500"  alt="foto"></td>
+            <td>{{item.id}}</td>
+            <td>{{item.rubro}}</td>
+            <td>{{item.descripcion}}</td>
+            <td><img src="userpic/{{item.imagen}}.jpg" width="50"  alt="foto"></td>
             
             <td>
-            <a class="btn btn-warning" href="/modify/{{item.Id}}">Editar</a>
+            <a class="btn btn-warning" href="/modify/{{item.id}}">Editar</a>
             ||
-            <a id="btnBorrar"  class="btn btn-danger" href="/delete/{{item.Id}}">Borrar</a>
+            <a id="btnBorrar"  class="btn btn-danger" href="/delete/{{item.id}}">Borrar</a>
           </td>
           
           </tr>

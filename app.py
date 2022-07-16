@@ -73,11 +73,13 @@ def storage():
     # tiempo= now.strftime("%Y%H%M%S")  
     if _foto.filename!="":
         # nuevoNombreFoto= tiempo +"_"+ _foto.filename
-        _foto.save("uploads/"+_foto.filename)
+        
+        fotoCodigo=_codigo.replace(".","")+".jpg"
+        _foto.save("uploads/"+fotoCodigo)
         
     # sql="INSERT INTO productos(Producto,Nombre,Foto) VALUES (%s,%s,%s);"
     # datos=(_producto,_nombre,nuevoNombreFoto)
-    datos=(_codigo,_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad,_foto.filename)
+    datos=(_codigo,_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad,fotoCodigo)
     sql="INSERT INTO gustavo.web(`cod producto`, linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad , imagen) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)";
     cursor.execute(sql,datos)
     conn.commit()
@@ -118,7 +120,8 @@ def mono():
 
 @app.route('/borra')
 def borra():
-    sql="SELECT Producto FROM productos GROUP BY Producto;"
+    # sql="SELECT Producto FROM productos GROUP BY Producto;"
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
     cursor.execute(sql)
     tipos=cursor.fetchall()
     
@@ -128,7 +131,7 @@ def borra():
 def selborra():
     _producto=request.form['tipoProducto']
      
-    sql=f"SELECT * FROM productos WHERE Producto='{_producto}'"
+    sql=f"SELECT `cod producto` id,rubro,descripcion, imagen FROM gustavo.web WHERE linea='{_producto}' order by rubro"
     
     cursor.execute(sql)
     productos=cursor.fetchall()
@@ -136,11 +139,12 @@ def selborra():
     return render_template('seleccionadosBorrar.html', productos=productos)
 
 
-@app.route('/modify/<int:Id>')
+@app.route('/modify/<float:Id>')
 def modify(Id):
-    sql=f"SELECT * FROM productos WHERE Id={Id}"
+    sql=f"SELECT * FROM gustavo.web WHERE `cod producto`={Id}"
     cursor.execute(sql)
     item=cursor.fetchone()
+    print(item)
     
     return render_template('/productos/edit.html', item=item)
 
@@ -148,19 +152,27 @@ def modify(Id):
 @app.route('/update', methods=['POST'])
 def update():
     
-    _nombre=request.form['txtNombre']
-    _producto=request.form['txtProducto']
+    _codigo=request.form['txtCodigo']
+    _linea=request.form['txtLinea']
+    _codlinea=request.form['txtCodLinea']
+    _ordlinea=request.form['txtOrdenLinea']
+    _rubro=request.form['txtRubro']
+    _codrubro=request.form['txtCodRubro']
+    _ordrubro=request.form['txtOrdenRubro']
+    _descripcion=request.form["txtDescripcion"]
+    _precio=request.form['txtPrecio']
+    _unidad=request.form['txtUnidad']
+    
     _foto=request.files['txtFoto']
-    id=request.form['txtId']
     
         
     if _foto.filename!='':
         
        #SI CAMBIA LA FOTO
-       sql=f"SELECT Foto from productos WHERE ID={id}"
+       sql=f"SELECT imagen from gustavo.web WHERE `cod producto`={_codigo}"
        cursor.execute(sql)
        
-       nombrefotovieja=cursor.fetchone()['Foto']
+       nombrefotovieja=cursor.fetchone()['imagen']
            
        try:
             os.remove(os.path.join(app.config['UPLOADS'],nombrefotovieja))
@@ -170,26 +182,22 @@ def update():
            pass
        
                     
-       sql=f"UPDATE productos SET Nombre='{_nombre}', Producto='{_producto}' WHERE Id={id}"
+       sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}, `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{_foto.filename}'  WHERE `cod producto`={_codigo}";
        cursor.execute(sql)
        conn.commit()
-         # aca se cargan TODOS los datos nuevos
-                
-       now =datetime.now()
-       tiempo = now.strftime("%Y%H%M%S")
-       nuevoNombreFoto=tiempo+"_"+_foto.filename 
-       _foto.save("uploads/"+nuevoNombreFoto)
        
-       sql=f"UPDATE productos SET Foto='{nuevoNombreFoto}' WHERE ID={id}" 
-       cursor.execute(sql)
-       conn.commit()
-         
+         # aca se cargan TODOS los datos nuevos
+           
+       fotoCodigo=_codigo.replace(".","")+".jpg"
+       _foto.save("uploads/"+fotoCodigo)
+                
     else:
-         #SI NO CAMBIA LA FOTO
+        #SI NO CAMBIA LA FOTO
+        datos=(_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad)
+        sql="UPDATE gustavo.web SET (linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) WHERE `cod producto`={_codigo}";
+        #  sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}, `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}'  WHERE `cod producto`={_codigo}";
          
-        sql=f"UPDATE productos SET Nombre='{_nombre}', Producto='{_producto}' WHERE Id={id}"
-         
-        cursor.execute(sql)
+        cursor.execute(sql,datos)
         conn.commit()
        
     return redirect('/borra')         

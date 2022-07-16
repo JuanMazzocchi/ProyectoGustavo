@@ -12,6 +12,17 @@ if (btnsConfirm.length){
     }
     
 };
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 const modBoot = document.getElementById('btnModalBoot');
 modBoot.addEventListener('click', carroBoot);
 const modalcontent = document.getElementById('modalBootstrap');
@@ -142,6 +153,10 @@ function addToCarrito(infoProducto){
        // console.log("guardo default");  // solo si no hay nada cargado
         guardarEnLS(infoProducto);
     };
+    Toast.fire({
+        icon: 'success',
+        title: 'Producto añadido al Carro'
+      })
     cantidadDefault(); 
 };
 
