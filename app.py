@@ -181,32 +181,51 @@ def update():
            print(f"error, no se pudo borrar la foto :  {nombrefotovieja}")
            pass
        
-                    
-       sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}, `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{_foto.filename}'  WHERE `cod producto`={_codigo}";
+       fotoCodigo=_codigo.replace(".","")+".jpg"
+       _foto.save("uploads/"+fotoCodigo)  
+       imagen=fotoCodigo.replace(".jpg","")
+                 
+       sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}', `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{imagen}'  WHERE `cod producto`={_codigo}";
        cursor.execute(sql)
        conn.commit()
        
          # aca se cargan TODOS los datos nuevos
            
-       fotoCodigo=_codigo.replace(".","")+".jpg"
-       _foto.save("uploads/"+fotoCodigo)
+      
                 
     else:
         #SI NO CAMBIA LA FOTO
-        datos=(_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad)
-        sql="UPDATE gustavo.web SET (linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) WHERE `cod producto`={_codigo}";
-        #  sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}, `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}'  WHERE `cod producto`={_codigo}";
-         
-        cursor.execute(sql,datos)
+        # datos=(_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad)
+        # print(datos)
+        # sql="UPDATE gustavo.web SET (linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) WHERE `cod producto`='{_codigo}'";
+        
+        
+        sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}', `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}' WHERE `cod producto`='{_codigo}' limit 1";  
+        cursor.execute(sql)
         conn.commit()
        
     return redirect('/borra')         
        
        
-@app.route('/delete/<int:Id>')       #esta funcionando confirmando mediante JS
+@app.route('/delete/<float:Id>')       #esta funcionando confirmando mediante JS
 def delete(Id):
     # flash('Realmente quiere borrar ese articulo?')
-    sql=f"DELETE from productos WHERE Id={Id}"
+    sql=f"SELECT imagen from gustavo.web WHERE `cod producto`={Id}"
+    cursor.execute(sql)
+       
+    nombrefotovieja=cursor.fetchone()['imagen']
+    nombreStr=str(nombrefotovieja)
+    nombrefotoviejacompleto=str(nombreStr + ".jpg")
+    print(nombrefotoviejacompleto)
+    try:
+        os.remove(os.path.join(app.config['UPLOADS'],nombrefotoviejacompleto))
+
+    except:
+        print(f"error, no se pudo borrar la foto :  {nombrefotoviejacompleto}")
+        pass
+    
+    
+    sql=f"DELETE from gustavo.web WHERE `cod producto`={Id}"
     cursor.execute(sql)
     conn.commit()
     
