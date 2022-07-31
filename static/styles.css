@@ -23,6 +23,7 @@ h1{
 
 #imagen{
     display:none;
+    height: 120px;
   }
   
  #visible{
@@ -36,7 +37,11 @@ h1{
  #cuadro>form{
   margin: 1vh;
  }
-
+ .administradorBtn{
+  /* margin: 0 , 1vh, 0, 1vh; */
+  margin-left: 3vh;
+  margin-left: 3vh;
+}
  
 
 .art{
@@ -59,10 +64,31 @@ h1{
  margin-right: 0;
  margin-left: 0;
 }
-
-#todoElCarro{
-  display: none;
+.item-image{position: absolute;
+   top: 0;
+   left: 0;
+  z-index: 1;
+  overflow: hidden;
+  max-height: 120px;
+ 
 }
+.lupa{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;}
+
+  .contenedorDeImagenes{
+    height: 120px;
+  }
+
+#irArriba{
+  position:fixed;
+  bottom: 0;
+  right: 0;
+}
+
+ 
 /* LAS FLECHAS DEL INPUT */
   /* Chrome, Safari, Edge, Opera */ 
 input::-webkit-outer-spin-button,
@@ -99,4 +125,8 @@ input[type=number] {
 }
 .form-group > label{
   font-weight: bolder;
+}
+ 
+#formBase{
+  margin: 5vh 0 0 3vh;
 }

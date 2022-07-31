@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 
 from pymysql.cursors import DictCursor
+from sqlalchemy import text
 
 app = Flask(__name__)
 mysql=MySQL()
@@ -39,8 +40,8 @@ def admin():
     _Usuario=request.form['Usuario']
     _Password=request.form['Password']
     
-    if _Usuario == 'nuria' and _Password =='supertop':
-        return render_template('productos/ingresoProd.html')
+    if _Usuario == 'gustavo' and _Password =='1234':
+        return render_template('productos/adminMain.html')
     else:
         #aca hay que poner la opcion de usuario        
         return redirect('/')
@@ -105,22 +106,38 @@ def seleccion():
     cursor = conn.cursor()
     cursor.execute(sql)
     articulos=cursor.fetchall()
-    # print(articulos)
+    print(articulos)
     conn.commit()
     return render_template('seleccionados.html', articulos=articulos )
     
     
-@app.route('/mono', methods=['GET'])
+@app.route('/mono', methods=['POST'])
 def mono():
-    sql="SELECT Producto FROM productos GROUP BY Producto;"
+    _palabraBuscar=request.form['palabraBuscar']
+    sql=f"SELECT * FROM gustavo.web WHERE `cod producto` LIKE '%{_palabraBuscar}%' OR descripcion LIKE '%{_palabraBuscar}%' ORDER BY linea LIMIT 0, 1000;"
     cursor.execute(sql)
-    tipos=cursor.fetchall()
+    busqueda=cursor.fetchall()
     
-    return render_template('/productos/seleccion.html', tipos=tipos)
+    
+    return render_template('seleccionbusqueda.html',  busqueda=busqueda )
+
+@app.route('/monoAdmin', methods=['POST'])
+def monoAdmin():
+    _palabraBuscar=request.form['palabraBuscar']
+    sql=f"SELECT * FROM gustavo.web WHERE `cod producto` LIKE '%{_palabraBuscar}%' OR descripcion LIKE '%{_palabraBuscar}%' ORDER BY linea LIMIT 0, 1000;"
+    cursor.execute(sql)
+    productos=cursor.fetchall()
+    print(productos)
+     
+    
+    
+    return render_template( 'seleccionadosBorrar.html', productos=productos )
+
+    
 
 @app.route('/borra')
 def borra():
-    # sql="SELECT Producto FROM productos GROUP BY Producto;"
+    
     sql="SELECT DISTINCT linea FROM gustavo.web;"
     cursor.execute(sql)
     tipos=cursor.fetchall()
@@ -131,7 +148,7 @@ def borra():
 def selborra():
     _producto=request.form['tipoProducto']
      
-    sql=f"SELECT `cod producto` id,rubro,descripcion, imagen FROM gustavo.web WHERE linea='{_producto}' order by rubro"
+    sql=f"SELECT `cod producto`,rubro,descripcion, imagen FROM gustavo.web WHERE linea='{_producto}' order by rubro"
     
     cursor.execute(sql)
     productos=cursor.fetchall()
@@ -141,6 +158,7 @@ def selborra():
 
 @app.route('/modify/<float:Id>')
 def modify(Id):
+    
     sql=f"SELECT * FROM gustavo.web WHERE `cod producto`={Id}"
     cursor.execute(sql)
     item=cursor.fetchone()
@@ -154,11 +172,7 @@ def update():
     
     _codigo=request.form['txtCodigo']
     _linea=request.form['txtLinea']
-    _codlinea=request.form['txtCodLinea']
-    _ordlinea=request.form['txtOrdenLinea']
     _rubro=request.form['txtRubro']
-    _codrubro=request.form['txtCodRubro']
-    _ordrubro=request.form['txtOrdenRubro']
     _descripcion=request.form["txtDescripcion"]
     _precio=request.form['txtPrecio']
     _unidad=request.form['txtUnidad']
@@ -185,7 +199,7 @@ def update():
        _foto.save("uploads/"+fotoCodigo)  
        imagen=fotoCodigo.replace(".jpg","")
                  
-       sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}', `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{imagen}'  WHERE `cod producto`={_codigo}";
+       sql=f"UPDATE gustavo.web SET linea='{_linea}',rubro='{_rubro}',descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{imagen}'  WHERE `cod producto`={_codigo}";
        cursor.execute(sql)
        conn.commit()
        
@@ -216,7 +230,7 @@ def delete(Id):
     nombrefotovieja=cursor.fetchone()['imagen']
     nombreStr=str(nombrefotovieja)
     nombrefotoviejacompleto=str(nombreStr + ".jpg")
-    print(nombrefotoviejacompleto)
+    
     try:
         os.remove(os.path.join(app.config['UPLOADS'],nombrefotoviejacompleto))
 
@@ -230,14 +244,47 @@ def delete(Id):
     conn.commit()
     
     # return render_template('seleccionadosBorrar.html', error=error)
-           
-   
+      
     return redirect('/borra')
-       
-       
-       
-       
-       
+
+@app.route('/actualizador')
+
+def actualizador():
+    return render_template('/productos/actualizador.html')
+    
+    
+@app.route('/actualizarBase', methods=['POST'])       
+def actualizandoBase():
+    
+    _base=request.files['baseActualizada']  
+    _base.save("uploads/bd/"+_base.filename)            #grabo la base nueva en uploads/db
+     
+    
+    
+    sql=""" 
+    LOAD DATA INFILE 'c:/users/juanm/downloads/LISTPROV.csv' 
+    INTO TABLE gustavo.web
+    character set latin1				#FUNCIONAN LAS ñ!!!!!!
+    FIELDS TERMINATED BY ','
+    LINES TERMINATED BY '\n'
+    ignore 1 lines
+    (`cod producto`,linea,rubro,descripcion,pcio_lista,unidad,imagen)
+    ;
+    """
+    
+    
+    
+    
+    
+    
+    cursor.execute(sql)
+    conn.commit()
+    
+    
+    
+    return render_template('/productos/actualizador.html')
+
+
        
     
 

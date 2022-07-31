@@ -1,4 +1,6 @@
-{% include 'header.html' %}
+ 
+{% include "headerAdmin.html" %}
+ 
 
 
 <form method="POST" action="/update" enctype="multipart/form-data">
@@ -15,24 +17,8 @@
                <input type="text" name="txtLinea" id="txtLinea" size="50" value="{{item.linea}}">
              </div>
              <div class="form-group">
-               <label for="txtCodLinea">Cod Linea:</label>
-               <input type="text" name="txtCodLinea" id="txtCodLinea"  value="{{item['cod linea']}}">
-             </div>
-             <div class="form-group">
-                <label for="txtOrdenLinea">Orden Linea:</label>
-                <input type="text" name="txtOrdenLinea" id="txtOrdenLinea"  value="{{item['orden linea']}}">
-              </div>
-              <div class="form-group">
                 <label for="txtRubro">Rubro:</label>
                 <input type="text" value="{{item.rubro}}" name="txtRubro" id="txtRubro" maxlength="100"  size="100" required >
-              </div>
-              <div class="form-group">
-                <label for="txtCodRubro">Cod Rubro:</label>
-                <input type="text" name="txtCodRubro" id="txtCodRubro"  value="{{item['cod rubro']}}">
-              </div>
-              <div class="form-group">
-                <label for="txtOrdenRubro">Orden Rubro:</label>
-                <input type="text" name="txtOrdenRubro" id="txtOrdenRubro"  value="{{item['orden rubro']}}">
               </div>
              <div class="form-group">
                  <label for="txtDescripcion">Descripcion:</label>

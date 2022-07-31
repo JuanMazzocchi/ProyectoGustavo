@@ -1,14 +1,8 @@
-{% include 'header.html' %}
 
+{% include "headerAdmin.html" %}
+ 
 
-{% with messages= get_flashed_messages() %}
-{% if messages %}
-<script>Swal.fire('Producto añadido a la Base de Datos')</script>
-{% endif %}
-{% endwith %}
-
-
-<a class="btn btn-warning" href="{{url_for('borra')}}">Ir a Baja de Productos</a>
+ 
 
 
 
@@ -25,20 +19,8 @@
                 <label for="txtLinea">Linea:</label>
                 <input type="text" name="txtLinea" id="txtLinea" required   ></div>
             <div class="form-group">
-                <label for="txtCodLinea">Codigo Linea:</label>
-                <input type="text" name="txtCodLinea" id="txtCodLinea" required   ></div>
-            <div class="form-group">
-                <label for="txtOrdenLinea">Orden Linea:</label>
-                <input type="text" name="txtOrdenLinea" id="txtOrdenLinea" required   ></div>
-            <div class="form-group">
                 <label for="txtRubro">Rubro:</label>
                 <input type="text" name="txtRubro" id="txtRubro" required   ></div>
-            <div class="form-group">
-                <label for="txtCodRubro">Codigo Rubro:</label>
-                <input type="text" name="txtCodRubro" id="txtCodRubro" required   ></div>
-            <div class="form-group">
-                <label for="txtOrdenRubro">Orden Rubro:</label>
-                <input type="text" name="txtOrdenRubro" id="txtOrdenRubro" required   ></div>
             <div class="form-group">
                 <label for="txtDescripcion">Descripcion:</label>
                 <input type="text" name="txtDescripcion" id="txtDescripcion" required   ></div>

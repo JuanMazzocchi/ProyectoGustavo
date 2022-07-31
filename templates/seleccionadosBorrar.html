@@ -1,4 +1,6 @@
-{% include 'header.html' %}
+{% include 'headerAdmin.html' %}
+
+ 
 
 <!-- {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -9,8 +11,7 @@
     </ul>
   {% endif %}
 {% endwith %} -->
-<a class="btn btn-info" href="{{url_for('borra')}}">Cambiar Seleccion</a>
-<a class="btn btn-success" href="{{url_for('isAdmin')}}" >Ingresar Producto</a>
+ 
 <table class="table table-striped">
     <thead class="thead-dark col-5 ">
       <tr>
@@ -24,13 +25,13 @@
     <tbody>
     {% for item in productos %}
         <tr>
-            <td>{{item.id}}</td>
+            <td>{{item['cod producto']}}</td>
             <td>{{item.rubro}}</td>
             <td>{{item.descripcion}}</td>
             <td><img src="userpic/{{item.imagen}}.jpg" width="50"  alt="foto"></td>
             
             <td>
-            <a class="btn btn-warning" href="/modify/{{item.id}}">Editar</a>
+            <a class="btn btn-warning" href="/modify/{{item['cod producto']}}">Editar</a>
             ||
             <a id="btnBorrar"  class="btn btn-danger" href="/delete/{{item.id}}">Borrar</a>
           </td>

@@ -1,4 +1,24 @@
-{% include 'header.html' %}
+{% include 'headerAdmin.html' %}
+ 
+ 
+
+<!-- {% with messages  = get_flashed_messages %}
+
+{% if messages %}
+<script>
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    text: "{{message}}",
+    showConfirmButton: true,
+    timer: 5000
+})
+</script>
+
+{% endif %}
+
+{% endwith %} -->
+ 
 
 <form method="POST" action="/selborra" enctype="multipart/form-data">
     

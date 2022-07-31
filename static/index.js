@@ -23,9 +23,12 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
+
 const modBoot = document.getElementById('btnModalBoot');
 modBoot.addEventListener('click', carroBoot);
 const modalcontent = document.getElementById('modalBootstrap');
+
+
 
 const botonAñadirProducto = document.querySelectorAll('.btnAñadirAlCarrito');
 botonAñadirProducto.forEach(addTocartbutton => {
@@ -389,7 +392,15 @@ $("#exampleModal").on("hidden.bs.modal", function () {           //actualizador 
 });
 
 
-
+function modal(event){
+    let id=event.currentTarget.getAttribute("id")
+    let descripcion=event.currentTarget.getAttribute("name")
+    let modal=document.getElementById("imagenModal2")
+    modal.setAttribute("src", "userpic/"+id+".jpg")
+    titulo=document.getElementById('exampleModalLongTitle')
+    titulo.innerHTML=descripcion
+    
+  }
 
 
 function acomodadorDePedido(item){
@@ -401,6 +412,8 @@ function acomodadorDePedido(item){
     divPedido.innerHTML=itemPedido
     pedidoTotal.append(divPedido)
 };
+
+
 
 
  
