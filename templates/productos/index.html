@@ -1,7 +1,7 @@
  
     {% include "header.html" %}
     <button onclick=volver() style="display:none;" id="volver">Volver</button>
-    <div class="container" id="container">
+    <!-- <div class="container" id="container">
         <div class="row">
           <div class="col-sm">
            <button class="btn btn-info btn-lg" onclick="mostrarSanitarios(event)" id="sanitarios"> Sanitarios</button>
@@ -132,8 +132,22 @@
 
 
 
+    </div> -->
+    <div class="d-flex justify-content-center">
+        <h1>Seleccione una linea</h1>
     </div>
-   
+    <div class=" d-flex justify-content-around flex-wrap contenedorLineas" >
+    {% for linea in lineas %}
+    <div>
+    <form method="POST" action="/seleccion" enctype="multipart/form-data">
+        <div class="form-group">
+         <input class="btn btn-info btn-xs"  type="submit" formenctype="multipart/form-data"  formmethod="post" id="{{linea.linea}}" value="{{linea.linea}}" name="Name">
+        </div>
+    </form>
+    </div>
+
+    {% endfor %}
+   </div>
 
 <script>
  //   function mostrarSanitarios(event){

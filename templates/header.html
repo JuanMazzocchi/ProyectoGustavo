@@ -3,33 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-    
-
     <script src="{{url_for('static', filename='index.js') }}" defer></script> <!-- link JS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> <!-- link Bootstrap-->
     <link rel="STYLESHEET" href="/static/styles.css">
     <script src="sweetalert2.all.min.js"></script> 
-    
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
-    
-
-    
-    
-
-
-     
-    
     <title>Proyecto Gustavo</title>
 </head>
 <body>
-<!-- <div id="head">
-<h1>Proyecto Gustavo</h1>
-<img id="logo" src="/static/gustavo.jpg" alt="jc" width="90">
-</div> -->
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center sticky-top">
@@ -49,6 +29,23 @@
             <span class="navbar-toggler-icon"></span>
           </button>
         </li>
+        <li>
+        <button class="navbar-toggler" id="hamburguesaLineas"  type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button></li>
+          <li> <!-- HAMBURGUESA LINEAS -->
+            <div class="pos-f-t ">
+              <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-light p-4 justify-content-center" id="btnsLineas">
+                  {% for linea in lineas %}
+
+                  <button class="btn btn-info btn-xs">{{linea.linea}}</button>
+                  
+                  {% endfor %}
+            
+       
+                </div>
+              </div></li>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <li class="nav-item pull-md-left">
             <a class="navbar-brand" href="#">Tel:5555 5555 <span class="sr-only">(current)</span></a>
@@ -79,11 +76,9 @@
             </li>   
           </div>
         </ul>
-      
-         
-    
+       
       </nav>
-    
+      
       <!-- Button trigger modal -->
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btnModalBoot">
   Launch demo modal

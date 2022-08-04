@@ -116,7 +116,7 @@ function addToCartBtnClicked(event){
     const itemDescripcion = item.querySelector('.item-descripcionProducto').textContent;
     const itemPrecio= item.querySelector(".item-precioProducto").textContent;
     const itemUnidad = item.querySelector('.item-unidadDeVenta').textContent;
-    const itemCantidad = 1 //default
+    let itemCantidad =item.querySelector('.cantidadDefault').value;
 
     infoProducto ={id:itemCodigo,imagen:itemImage,descripcion:itemDescripcion,precio:itemPrecio,unidad:itemUnidad,cantidad:itemCantidad};
      
@@ -177,7 +177,7 @@ function arregladora(item){
     </div>
     
     <div class="col-1 art mw-100 no-gutters text-center">
-    <button class="btn btn-info restaCantidad" title="Disminuir">-</button><input class="cantidadInput" type="number" value=${item.cantidad} min="0" ><button class="btn btn-info sumaCantidad" title="Añadir">+</button>
+    <input class="cantidadInput" type="number" value=${item.cantidad} min="0" ><button class="btn btn-success" onclick="btnmodificarCarrito(event)" title="Modificar">OK</button> 
     </div>
     <div class="col-1 art mw-100 no-gutters text-center">
     <button class="btn btn-danger btnBorrarProducto" title="Quitar del Carro">X</button>
@@ -239,55 +239,80 @@ function btnVaciarClicked(){
     
 };
 
-function btnRestarCantidadClicked(event){
-    let btn = event.target;
+// function btnRestarCantidadClicked(event){
+//     let btn = event.target;
+//     let prodAModificar = btn.closest('.contenedor');
+//     let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
+//     let itemCantidad =prodAModificar.querySelector('.cantidadInput').value;
+//     let productoModificado;
+//     let productos;
+//     productos =obtenerProductosLS();
+
+//     for (let i = 0; i < productos.length; i++) {
+//         if (productos[i].id===itemCodigo){
+
+//             if(productos[i].cantidad===1){
+//                 continue
+//             }else{
+//             productoModificado=productos[i];
+//             productoModificado.cantidad=itemCantidad-1;
+//             productos.splice([i],1,productoModificado); 
+//             localStorage.setItem('productos', JSON.stringify(productos));
+//             carroBoot();
+//             totalCarro();
+            
+//             };
+//         };
+//     };
+// };
+function btnmodificarCarrito(event){
+    let btn=event.target;
     let prodAModificar = btn.closest('.contenedor');
     let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
     let itemCantidad =prodAModificar.querySelector('.cantidadInput').value;
     let productoModificado;
     let productos;
     productos =obtenerProductosLS();
+    
 
-    for (let i = 0; i < productos.length; i++) {
-        if (productos[i].id===itemCodigo){
+    for (let i = 0; i <productos.length; i++) {
+       if(productos[i].id===itemCodigo){
+       
+        productoModificado=productos[i];
+        productoModificado.cantidad=itemCantidad;
+        productos.splice([i],1,productoModificado);//quita el array viejo y en su lugar pone el nuevo
+        localStorage.setItem('productos', JSON.stringify(productos));
+        carroBoot();
+        totalCarro();
 
-            if(productos[i].cantidad===1){
-                continue
-            }else{
-            productoModificado=productos[i];
-            productoModificado.cantidad=itemCantidad-1;
-            productos.splice([i],1,productoModificado); //quita el array viejo y en su lugar pone el nuevo
-            localStorage.setItem('productos', JSON.stringify(productos));
-            carroBoot();
-            totalCarro();
-            
-            };
-        };
+       };
+        
     };
+
 };
 
-function btnSumarCantidadClicked(event){
-    let btn = event.target;
-    let prodAModificar = btn.closest('.contenedor');
-    let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
-    let itemCantidad =parseInt( prodAModificar.querySelector('.cantidadInput').value);
-    let productoModificado;
-    let productos;
-    productos =obtenerProductosLS();
+// function btnSumarCantidadClicked(event){
+//     let btn = event.target;
+//     let prodAModificar = btn.closest('.contenedor');
+//     let itemCodigo= prodAModificar.querySelector('.item-codigo').textContent;
+//     let itemCantidad =parseInt( prodAModificar.querySelector('.cantidadInput').value);
+//     let productoModificado;
+//     let productos;
+//     productos =obtenerProductosLS();
 
-    for (let i = 0; i < productos.length; i++) {
-        if (productos[i].id===itemCodigo){
+//     for (let i = 0; i < productos.length; i++) {
+//         if (productos[i].id===itemCodigo){
             
-            productoModificado=productos[i];
-            productoModificado.cantidad=itemCantidad+1;
-            productos.splice([i],1,productoModificado); //quita el array viejo y en su lugar pone el nuevo
-            localStorage.setItem('productos', JSON.stringify(productos));
-            carroBoot();
-            totalCarro();
+//             productoModificado=productos[i];
+//             productoModificado.cantidad=itemCantidad+1;
+//             productos.splice([i],1,productoModificado); //quita el array viejo y en su lugar pone el nuevo
+//             localStorage.setItem('productos', JSON.stringify(productos));
+//             carroBoot();
+//             totalCarro();
             
-            };
-        };
-};
+//             };
+//         };
+// };
 
 function borrarProductoCarroClicked(event){
     let btn = event.target;
@@ -297,10 +322,10 @@ function borrarProductoCarroClicked(event){
     productos =obtenerProductosLS();
     for(let i =0; i < productos.length; i++){
         if(productos[i].id===itemCodigo){
-            console.log('producto '+productos[i].id+' borrandose' );
+            // console.log('producto '+productos[i].id+' borrandose' );
             productos.splice([i], 1);
             localStorage.setItem('productos', JSON.stringify(productos));
-            console.log("borrado");
+           // console.log("borrado");
             carroBoot();
             totalCarro();
             
@@ -356,18 +381,18 @@ function volver(){
     document.getElementById("cuadro").innerHTML="";
 };
 
-function mostrarSanitarios(event){
-    var id = event.currentTarget.getAttribute("id")
-  //  console.log(id)
-    var rubros = document.getElementsByClassName(id);
+// function mostrarSanitarios(event){
+//     var id = event.currentTarget.getAttribute("id")
+//   //  console.log(id)
+//     var rubros = document.getElementsByClassName(id);
 
-   // console.log(rubros)
-    var contenedor=document.getElementById("container");
-   // console.log(contenedor)
-    contenedor.style.display = 'none';
-    document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
-    document.getElementById("volver").style.display = 'block';
-};
+//    // console.log(rubros)
+//     var contenedor=document.getElementById("container");
+//    // console.log(contenedor)
+//     contenedor.style.display = 'none';
+//     document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
+//     document.getElementById("volver").style.display = 'block';
+// };
 
 var pedidoTotal=document.getElementById('terminarPedido');
 

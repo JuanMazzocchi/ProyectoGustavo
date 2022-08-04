@@ -4,11 +4,11 @@ body{
 
 
 
-#head{
+/* #head{
     display: flex;
     justify-content:space-between;
     margin-left: 10vh;
-    }
+    } */
 
 h1{
     color: rgb(5, 5, 36);
@@ -103,7 +103,7 @@ input[type=number] {
 }
 
 .cantidadInput{
-  width: 40px;;
+  width: 60px;;
 }
 .listado{
   font-size: large;
@@ -113,7 +113,7 @@ input[type=number] {
   font-size: large;
 }
 .cantidadDefault{
-  width: 40px;
+  width: 60px;
 }
 .container>div{
   margin-top: 3vh;
@@ -129,4 +129,24 @@ input[type=number] {
  
 #formBase{
   margin: 5vh 0 0 3vh;
+}
+
+#hamburguesaLineas{
+  display: block;
+}
+#btnsLineas{
+  margin-top: 1vh;
+  margin-bottom: 1vh !important;
+}
+
+.contenedorLineas{
+  margin: 3vh !important;
+}
+
+.btnRubro{
+  margin: 1vh 2vh 0 0;
+  
+}
+.txtBtnLinea{
+  font-size: small !important;
 }

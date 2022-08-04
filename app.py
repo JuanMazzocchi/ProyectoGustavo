@@ -29,7 +29,12 @@ cursor=conn.cursor(cursor=DictCursor)
 
 @app.route('/')
 def index():
-    return render_template('productos/index.html')
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
+    cursor.execute(sql)
+    lineas=cursor.fetchall()
+    print(lineas)
+    
+    return render_template('productos/index.html',lineas=lineas)
 
  
 
@@ -43,7 +48,7 @@ def admin():
     if _Usuario == 'gustavo' and _Password =='1234':
         return render_template('productos/adminMain.html')
     else:
-        #aca hay que poner la opcion de usuario        
+              
         return redirect('/')
     
 @app.route('/isAdmin')
@@ -55,33 +60,17 @@ def isAdmin():
 def storage():
     _codigo=request.form['txtCodigo']
     _linea=request.form['txtLinea']
-    _codlinea=request.form['txtCodLinea']
-    _ordlinea=request.form['txtOrdenLinea']
     _rubro=request.form['txtRubro']
-    _codrubro=request.form['txtCodRubro']
-    _ordrubro=request.form['txtOrdenRubro']
     _descripcion=request.form["txtDescripcion"]
     _precio=request.form['txtPrecio']
     _unidad=request.form['txtUnidad']
-    
     _foto=request.files['txtFoto']
-    
-    # if _nombre =="" or _producto=="":
-    #     flash('El Nombre y tipo de Producto son Obligatorios')
-    #     return redirect(url_for('admin'))
-    
-    # now=datetime.now()
-    # tiempo= now.strftime("%Y%H%M%S")  
+        
     if _foto.filename!="":
-        # nuevoNombreFoto= tiempo +"_"+ _foto.filename
-        
-        fotoCodigo=_codigo.replace(".","")+".jpg"
-        _foto.save("uploads/"+fotoCodigo)
-        
-    # sql="INSERT INTO productos(Producto,Nombre,Foto) VALUES (%s,%s,%s);"
-    # datos=(_producto,_nombre,nuevoNombreFoto)
-    datos=(_codigo,_linea,_codlinea,_ordlinea,_rubro,_codrubro,_ordrubro,_descripcion,_precio,_unidad,fotoCodigo)
-    sql="INSERT INTO gustavo.web(`cod producto`, linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad , imagen) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)";
+        _foto.save("uploads/"+_foto.filename)
+       
+    datos=(_codigo,_linea,_rubro,_descripcion,_precio,_unidad,_foto.filename)
+    sql="INSERT INTO gustavo.web(`cod producto`, linea,rubro , descripcion, pcio_lista, unidad , imagen) VALUES (%s,%s,%s,%s,%s,%s)";
     cursor.execute(sql,datos)
     conn.commit()
     
@@ -95,20 +84,49 @@ def uploads(nombreFoto):
 
 @app.route('/seleccion', methods=['POST'] )
 def seleccion():
-    _rubro=request.form['Name']
-    # print(_rubro)
-    # id ='ABRAZADERAS'
-    # sql ="SELECT * FROM  `gustavo`.`web` WHERE rubro=%s", (id); 
-    # sql=f"SELECT * FROM gustavo.web WHERE rubro={id}";
-    sql=f"SELECT * FROM gustavo.web WHERE  rubro = '{_rubro}' LIMIT 0, 1000";
+    _linea=request.form['Name']
+    sql=f"SELECT DISTINCT rubro FROM gustavo.web WHERE linea='{_linea}';"
+   
+    conn=mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    rubros=cursor.fetchall()
+    # print(rubros)
+    # print(rubros[0][0])
+    conn.commit()
+    
+    imagenes=[]
+    # for item in rubros:
+    #     print(item[0])
+    #     sql=f"SELECT imagen from gustavo.web where rubro='{item[0]}' limit 1"
+    #     cursor = conn.cursor()
+    #     cursor.execute(sql)
+    #     imagenes.append(cursor.fetchall())
+        
+        
+    # print(imagenes)    
+    
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
+    cursor=conn.cursor(cursor=DictCursor)
+    cursor.execute(sql)
+    lineas=cursor.fetchall()
+    print(lineas)
+        
+        
+        
+    
+    
+    return render_template('lineaseleccionada.html', rubros=rubros, linea=_linea,lineas=lineas )
 
+@app.route('/rubros', methods=['POST'])
+def rubros():
+    _rubro=request.form['Name']
+    sql=f"SELECT * FROM gustavo.web WHERE rubro = '{_rubro}';"
     conn=mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql)
     articulos=cursor.fetchall()
-    print(articulos)
-    conn.commit()
-    return render_template('seleccionados.html', articulos=articulos )
+    return render_template('seleccionados.html', articulos=articulos)
     
     
 @app.route('/mono', methods=['POST'])
@@ -127,13 +145,8 @@ def monoAdmin():
     sql=f"SELECT * FROM gustavo.web WHERE `cod producto` LIKE '%{_palabraBuscar}%' OR descripcion LIKE '%{_palabraBuscar}%' ORDER BY linea LIMIT 0, 1000;"
     cursor.execute(sql)
     productos=cursor.fetchall()
-    print(productos)
-     
-    
-    
+        
     return render_template( 'seleccionadosBorrar.html', productos=productos )
-
-    
 
 @app.route('/borra')
 def borra():
@@ -195,9 +208,9 @@ def update():
            print(f"error, no se pudo borrar la foto :  {nombrefotovieja}")
            pass
        
-       fotoCodigo=_codigo.replace(".","")+".jpg"
-       _foto.save("uploads/"+fotoCodigo)  
-       imagen=fotoCodigo.replace(".jpg","")
+        
+       _foto.save("uploads/"+_foto.filename)  
+       imagen=_foto.filename
                  
        sql=f"UPDATE gustavo.web SET linea='{_linea}',rubro='{_rubro}',descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}', imagen='{imagen}'  WHERE `cod producto`={_codigo}";
        cursor.execute(sql)
@@ -214,7 +227,7 @@ def update():
         # sql="UPDATE gustavo.web SET (linea,`cod linea`,`orden linea`,rubro ,`cod rubro`, `orden rubro`, descripcion, pcio_lista, unidad) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) WHERE `cod producto`='{_codigo}'";
         
         
-        sql=f"UPDATE gustavo.web SET linea='{_linea}', `cod linea`='{_codlinea}', `orden linea`='{_ordlinea}', rubro='{_rubro}', `cod rubro`='{_codrubro}', `orden rubro`='{_ordrubro}', descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}' WHERE `cod producto`='{_codigo}' limit 1";  
+        sql=f"UPDATE gustavo.web SET linea='{_linea}',rubro='{_rubro}',descripcion='{_descripcion}', pcio_lista='{_precio}', unidad='{_unidad}' WHERE `cod producto`='{_codigo}' limit 1";  
         cursor.execute(sql)
         conn.commit()
        
@@ -265,7 +278,7 @@ def actualizandoBase():
     LOAD DATA INFILE 'c:/users/juanm/downloads/LISTPROV.csv' 
     INTO TABLE gustavo.web
     character set latin1				#FUNCIONAN LAS ñ!!!!!!
-    FIELDS TERMINATED BY ','
+    FIELDS TERMINATED BY '|'
     LINES TERMINATED BY '\n'
     ignore 1 lines
     (`cod producto`,linea,rubro,descripcion,pcio_lista,unidad,imagen)
