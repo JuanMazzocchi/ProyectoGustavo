@@ -138,18 +138,21 @@
     </div>
     <div class=" d-flex justify-content-around flex-wrap contenedorLineas" >
     {% for linea in lineas %}
-    <div>
+    <div class="card cardLineas" style="width: 18rem;">
+        <img id="{{linea.linea}}" class="card-img-top" src="/static/{{linea.linea}}.jpg"  width="200px" height="200px"  alt="Card image cap">
     <form method="POST" action="/seleccion" enctype="multipart/form-data">
-        <div class="form-group">
-         <input class="btn btn-info btn-xs"  type="submit" formenctype="multipart/form-data"  formmethod="post" id="{{linea.linea}}" value="{{linea.linea}}" name="Name">
+        <div class="form-group text-center">
+         <input class="btn btn-info btn-xs btn-block"  type="submit" formenctype="multipart/form-data"  formmethod="post" id="{{linea.linea}}" value="{{linea.linea}}" name="Name">
         </div>
     </form>
     </div>
+     
 
     {% endfor %}
    </div>
 
 <script>
+ 
  //   function mostrarSanitarios(event){
  //   var id = event.currentTarget.getAttribute("id")
   //  console.log(id)

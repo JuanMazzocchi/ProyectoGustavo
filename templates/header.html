@@ -12,13 +12,13 @@
 <body>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center sticky-top">
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light justify-content-center sticky-top">
         <a class="navbar-brand" href="{{url_for('index')}}">Inicio</a>
         <ul class="navbar-nav pull-md-left">
            <li class="nav-item">
             <form class="form-inline pull-md-left" action="/mono" method="post" enctype="multipart/form-data">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="palabraBuscar" id="palabraBuscar">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
           </form>
           </li>
           <li class="nav-item">
@@ -37,18 +37,20 @@
             <div class="pos-f-t ">
               <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-light p-4 justify-content-center" id="btnsLineas">
+                  <form method="POST" action="/seleccion" enctype="multipart/form-data"> 
                   {% for linea in lineas %}
-
-                  <button class="btn btn-info btn-xs">{{linea.linea}}</button>
+                    
+                  <input class="btn btn-info btn-xs"  type="submit" formenctype="multipart/form-data"  formmethod="post"   value="{{linea.linea}}" name="Name">
                   
                   {% endfor %}
-            
+                  </form>
        
                 </div>
               </div></li>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <li class="nav-item pull-md-left">
-            <a class="navbar-brand" href="#">Tel:5555 5555 <span class="sr-only">(current)</span></a>
+             
+            <a class="navbar-brand" href="https://wa.me/5491157685812/?text=%C2%A1Hola!" target="_blank">Tel:1157685812 <span class="sr-only">(current)</span></a>
           </li> 
           <li class="nav-item pull-md-left">
               <a class="navbar-brand" href="#">Contacto <span class="sr-only">(current)</span></a>

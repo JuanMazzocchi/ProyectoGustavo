@@ -9,7 +9,7 @@
  </div>
 
 
-<div class=" d-flex justify-content-around flex-wrap contenedorLineas"  >
+<!-- <div class=" d-flex justify-content-around flex-wrap contenedorLineas"  >
 {% for rubro in rubros %}
 <div class="btnRubro">
 <form method="POST" action="/rubros" enctype="multipart/form-data">
@@ -24,6 +24,24 @@
 
 
 {% endfor %} 
+</div> -->
+<div class=" d-flex justify-content-between flex-wrap contenedorLineas"  >
+{% for cosa in imagenes %}
+<div class="col-sm-2 justify-content-between ">
+<div class="card rubrosCard d-flex align-items-center" >
+     <img class="card-img-top" src="/userpic/{{cosa[0]}}.jpg" alt="Card image cap">
+  <div class="card-body d-flex align-items-end">
+<form method="POST" action="/rubros" enctype="multipart/form-data">
+         
+        <input class="btn btn-info btn-xs btn-block txtBtnLinea"  type="submit" formenctype="multipart/form-data"  formmethod="post" id="{{cosa[1]}}" value="{{cosa[1]}}" name="Name">
+        
+</form>
+</div>
+</div>         
+</div> 
+
+
+    {% endfor %}
 </div>
 
  {% include "footer.html" %}

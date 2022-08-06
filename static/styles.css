@@ -23,7 +23,7 @@ h1{
 
 #imagen{
     display:none;
-    height: 120px;
+    
   }
   
  #visible{
@@ -64,22 +64,31 @@ h1{
  margin-right: 0;
  margin-left: 0;
 }
-.item-image{position: absolute;
+.item-image{
+  position: absolute;
    top: 0;
    left: 0;
   z-index: 1;
-  overflow: hidden;
-  max-height: 120px;
+  
+  overflow:hidden ;
+  /* max-height: 120px; */
+  width: 50px;
+
  
 }
 .lupa{
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 99;}
+  z-index: 99;
+  width:50px;
+}
+ 
+ 
 
   .contenedorDeImagenes{
-    height: 120px;
+    height: 50px;
+    max-width: 50px;
   }
 
 #irArriba{
@@ -106,7 +115,7 @@ input[type=number] {
   width: 60px;;
 }
 .listado{
-  font-size: large;
+  font-size:medium;
 }
  
 .contenedor{
@@ -140,7 +149,7 @@ input[type=number] {
 }
 
 .contenedorLineas{
-  margin: 3vh !important;
+  margin: 1vh !important;
 }
 
 .btnRubro{
@@ -149,4 +158,51 @@ input[type=number] {
 }
 .txtBtnLinea{
   font-size: small !important;
+  /* margin: 1rem; */
 }
+#mainNav{
+  background-color: rgb(179, 214, 214) !important;
+}
+#navbarToggleExternalContent{
+  background-color: rgb(160, 161, 161) !important; 
+}
+#btnsLineas{
+  background-color: rgb(179, 214, 214) !important;
+
+}
+footer{
+  background-color: rgb(179, 214, 214) !important;
+}
+.card-img-top{
+  width: 100%;
+  max-height: 15rem;
+}
+.rubrosCard img{
+
+  transition: transform 1s ease;
+} 
+.rubrosCard:hover img{
+  transform: scale(1.1);
+}
+
+.rubrosCard{
+  width: 15rem;
+  /* height: 15rem; */
+  overflow: hidden;
+  height: 20rem;
+  margin: 0;
+}
+
+.cardLineas{
+  overflow: hidden;
+}
+.cardLineas img{
+  transition: transform 1s ease;
+}
+.cardLineas:hover img{
+  transform: scale(1.1);
+}
+.card-body{
+  padding: 0;
+}
+ 

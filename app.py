@@ -94,29 +94,46 @@ def seleccion():
     # print(rubros)
     # print(rubros[0][0])
     conn.commit()
-    
     imagenes=[]
-    # for item in rubros:
-    #     print(item[0])
-    #     sql=f"SELECT imagen from gustavo.web where rubro='{item[0]}' limit 1"
-    #     cursor = conn.cursor()
-    #     cursor.execute(sql)
-    #     imagenes.append(cursor.fetchall())
+    listaderubros=[]
+    for item in rubros:
+        # print(item[0])
+        elemento=str(item[0])
+        # print(elemento)
+        listaderubros.append(elemento)
+        
+        sql=f"SELECT imagen from gustavo.web where rubro='{elemento}' limit 1";
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        foto=cursor.fetchall() 
+        # print(foto[0][0])
+        fotoStr=str(foto[0][0])
+        fotoFinal= fotoStr.replace("\r","")
+        
+        imgLista=[fotoFinal,elemento]
         
         
-    # print(imagenes)    
+        imagenes.append(imgLista)
+    # print(listaderubros)
+    print(imagenes)
+    diccionario=dict(zip(listaderubros,imagenes))
+    # print(diccionario)
+        
+        
+               
+    
     
     sql="SELECT DISTINCT linea FROM gustavo.web;"
     cursor=conn.cursor(cursor=DictCursor)
     cursor.execute(sql)
     lineas=cursor.fetchall()
-    print(lineas)
+   
         
         
         
     
     
-    return render_template('lineaseleccionada.html', rubros=rubros, linea=_linea,lineas=lineas )
+    return render_template('lineaseleccionada.html', rubros=rubros, linea=_linea,lineas=lineas,diccionario=diccionario, imagenes=imagenes )
 
 @app.route('/rubros', methods=['POST'])
 def rubros():
@@ -126,18 +143,35 @@ def rubros():
     cursor = conn.cursor()
     cursor.execute(sql)
     articulos=cursor.fetchall()
-    return render_template('seleccionados.html', articulos=articulos)
+    
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
+    cursor=conn.cursor(cursor=DictCursor)
+    cursor.execute(sql)
+    lineas=cursor.fetchall()
+    return render_template('seleccionados.html', articulos=articulos,lineas=lineas)
     
     
 @app.route('/mono', methods=['POST'])
 def mono():
     _palabraBuscar=request.form['palabraBuscar']
-    sql=f"SELECT * FROM gustavo.web WHERE `cod producto` LIKE '%{_palabraBuscar}%' OR descripcion LIKE '%{_palabraBuscar}%' ORDER BY linea LIMIT 0, 1000;"
-    cursor.execute(sql)
+    dato="%"+_palabraBuscar+"%"
+    
+    # sql=f"SELECT * FROM gustavo.web WHERE `cod producto` LIKE '%{_palabraBuscar}%' OR descripcion LIKE '%{_palabraBuscar}%' ORDER BY linea LIMIT 0, 1000;"
+    # cursor.execute(sql)
+    # busqueda=cursor.fetchall()
+    cursor = conn.cursor(cursor=DictCursor)
+    cursor.execute("SELECT * FROM gustavo.web WHERE (`cod producto`) LIKE %s OR descripcion LIKE %s",( dato, dato))
     busqueda=cursor.fetchall()
     
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
+    cursor=conn.cursor(cursor=DictCursor)
+    cursor.execute(sql)
+    lineas=cursor.fetchall()
     
-    return render_template('seleccionbusqueda.html',  busqueda=busqueda )
+    
+    
+    
+    return render_template('seleccionbusqueda.html',  busqueda=busqueda, lineas=lineas )
 
 @app.route('/monoAdmin', methods=['POST'])
 def monoAdmin():
@@ -271,6 +305,7 @@ def actualizandoBase():
     
     _base=request.files['baseActualizada']  
     _base.save("uploads/bd/"+_base.filename)            #grabo la base nueva en uploads/db
+     
      
     
     
