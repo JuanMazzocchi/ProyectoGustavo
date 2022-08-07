@@ -32,7 +32,7 @@ def index():
     sql="SELECT DISTINCT linea FROM gustavo.web;"
     cursor.execute(sql)
     lineas=cursor.fetchall()
-    print(lineas)
+    # print(lineas)
     
     return render_template('productos/index.html',lineas=lineas)
 
@@ -54,6 +54,14 @@ def admin():
 @app.route('/isAdmin')
 def isAdmin():
     return render_template('productos/ingresoProd.html')   
+
+@app.route('/contacto')
+def contacto():
+    
+    sql="SELECT DISTINCT linea FROM gustavo.web;"
+    cursor.execute(sql)
+    lineas=cursor.fetchall()
+    return render_template('contacto.html', lineas=lineas) 
 
 
 @app.route('/store', methods=['POST'])
@@ -319,21 +327,12 @@ def actualizandoBase():
     (`cod producto`,linea,rubro,descripcion,pcio_lista,unidad,imagen)
     ;
     """
-    
-    
-    
-    
-    
-    
+       
     cursor.execute(sql)
     conn.commit()
-    
-    
-    
     return render_template('/productos/actualizador.html')
 
-
-       
+      
     
 
 if __name__=='__main__':

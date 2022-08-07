@@ -28,12 +28,11 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <button class="navbar-toggler" id="hamburguesaLineas"  type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </li>
-        <li>
-        <button class="navbar-toggler" id="hamburguesaLineas"  type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button></li>
-          <li> <!-- HAMBURGUESA LINEAS -->
+         <li> <!-- HAMBURGUESA LINEAS -->
             <div class="pos-f-t ">
               <div class="collapse" id="navbarToggleExternalContent">
                 <div class="bg-light p-4 justify-content-center" id="btnsLineas">
@@ -46,14 +45,16 @@
                   </form>
        
                 </div>
-              </div></li>
+              </div>
+            </li>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <li class="nav-item pull-md-left">
              
             <a class="navbar-brand" href="https://wa.me/5491157685812/?text=%C2%A1Hola!" target="_blank">Tel:1157685812 <span class="sr-only">(current)</span></a>
           </li> 
           <li class="nav-item pull-md-left">
-              <a class="navbar-brand" href="#">Contacto <span class="sr-only">(current)</span></a>
+            
+              <a class="navbar-brand" href="{{url_for('contacto')}}">Contacto <span class="sr-only">(current)</span></a>
             </li> 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

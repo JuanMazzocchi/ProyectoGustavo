@@ -381,18 +381,7 @@ function volver(){
     document.getElementById("cuadro").innerHTML="";
 };
 
-// function mostrarSanitarios(event){
-//     var id = event.currentTarget.getAttribute("id")
-//   //  console.log(id)
-//     var rubros = document.getElementsByClassName(id);
-
-//    // console.log(rubros)
-//     var contenedor=document.getElementById("container");
-//    // console.log(contenedor)
-//     contenedor.style.display = 'none';
-//     document.getElementById("cuadro").innerHTML = rubros[0].innerHTML;
-//     document.getElementById("volver").style.display = 'block';
-// };
+ 
 
 var pedidoTotal=document.getElementById('terminarPedido');
 
