@@ -236,6 +236,9 @@ function btnVaciarClicked(){
     localStorage.clear();
     totalCarro();
     modalcontent.innerHTML="";
+    modalcontent.innerHTML=`<div class="row justify-content-center" id="modalBootstrap"><h1>El Carro Esta Vacio</h1>
+          
+    </div>`;
     
 };
 

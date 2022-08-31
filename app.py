@@ -1,6 +1,6 @@
 
 
-# from distutils.log import error
+ 
 from flask import Flask
 from flask import render_template,request,redirect,url_for,send_from_directory,flash
 from flaskext.mysql import MySQL
