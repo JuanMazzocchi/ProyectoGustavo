@@ -1,0 +1,38 @@
+{% include 'headerAdmin.html' %}
+
+ 
+
+ 
+ 
+<table class="table table-striped">
+    <thead class="thead-dark col-5 ">
+      <tr>
+        <th scope="col">Cod Producto</th>
+        <th scope="col">Rubro</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Foto</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for todo in todos %}
+        <tr>
+            <td>{{todo['cod producto']}}</td>
+            <td>{{todo.rubro}}</td>
+            <td>{{todo.descripcion}}</td>
+            <td><img src="userpic/{{todo.imagen}}.jpg" width="50"  alt="foto"></td>
+            
+            <td>
+            <a class="btn btn-warning" href="/modify/{{todo['cod producto']}}">Editar</a>
+            ||
+            <a id="btnBorrar"  class="btn btn-danger" href="/delete/{{todo.id}}">Borrar</a>
+          </td>
+          
+          </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+
+
+  {% include 'footer.html'%}

@@ -1,6 +1,7 @@
 
 
  
+from fileinput import filename
 from flask import Flask
 from flask import render_template,request,redirect,url_for,send_from_directory,flash
 from flaskext.mysql import MySQL
@@ -90,6 +91,10 @@ def storage():
 def uploads(nombreFoto):
     return send_from_directory(os.path.join('uploads'),nombreFoto)
 
+@app.route('/database')
+def database():
+    return send_from_directory(os.path.join('uploads'),'LISTPROV.csv')
+
 @app.route('/seleccion', methods=['POST'] )
 def seleccion():
     _linea=request.form['Name']
@@ -128,7 +133,7 @@ def seleccion():
     # print(diccionario)
         
         
-               
+              
     
     
     sql="SELECT DISTINCT linea FROM gustavo.web;"
@@ -198,6 +203,14 @@ def borra():
     tipos=cursor.fetchall()
     
     return render_template('/productos/seleccionBorrar.html', tipos=tipos)
+
+@app.route('/todo')
+def todo():
+    sql="SELECT * FROM gustavo.web"
+    cursor.execute(sql)
+    todos=cursor.fetchall()
+    return render_template('/productos/todos.html' , todos=todos)
+    
      
 @app.route('/selborra', methods=['POST'] )
 def selborra():
@@ -312,21 +325,30 @@ def actualizador():
 def actualizandoBase():
     
     _base=request.files['baseActualizada']  
-    _base.save("uploads/bd/"+_base.filename)            #grabo la base nueva en uploads/db
+    _base.save("uploads/"+_base.filename)            #grabo la base nueva en uploads
      
-     
+    base=url_for('database')
     
-    
-    sql=""" 
-    LOAD DATA INFILE 'c:/users/juanm/downloads/LISTPROV.csv' 
-    INTO TABLE gustavo.web
-    character set latin1				#FUNCIONAN LAS ñ!!!!!!
+    sql=f""" 
+    LOAD DATA INFILE 'https://github.com/JuanMazzocchi/ProyectoGustavo/blob/main/uploads/LISTPROV.csv.web'
+    character set latin1				 
     FIELDS TERMINATED BY '|'
     LINES TERMINATED BY '\n'
     ignore 1 lines
     (`cod producto`,linea,rubro,descripcion,pcio_lista,unidad,imagen)
     ;
     """
+    
+    # sql=""" 
+    # LOAD DATA INFILE 'c:/users/juanm/downloads/LISTPROV.csv' 
+    # INTO TABLE gustavo.web
+    # character set latin1				#FUNCIONAN LAS ñ!!!!!!
+    # FIELDS TERMINATED BY '|'
+    # LINES TERMINATED BY '\n'
+    # ignore 1 lines
+    # (`cod producto`,linea,rubro,descripcion,pcio_lista,unidad,imagen)
+    # ;
+    # """
        
     cursor.execute(sql)
     conn.commit()
